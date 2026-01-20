@@ -10,6 +10,12 @@ register-kernel = "python -m ipykernel install --user --name ibots-eeg-meg"
 
 [dependencies]
 python = "3.13.*"
+jupyterlab = ">=4.5.2,<5"
+jupyterlab-git = ">=0.51.4,<0.52"
+jupyterlab-lsp = ">=5.2.0,<6"
+jupyterlab_vim = ">=4.1.4,<5"
+jupyterlab-spellchecker = ">=0.8.4,<0.9"
+python-lsp-server = ">=1.14.0,<2"
 
 [pypi-dependencies]
 ipykernel = ">=7.1.0, <8"
@@ -18,3 +24,5 @@ mne = ">=1.11.0, <2"
 mne-connectivity = ">=0.7.0, <0.8"
 ipympl = ">=0.9.8, <0.10"
 pyqt5 = ">=5.15.11, <6"
+jldracula = ">=0.2.0, <0.3"
+autoreject = ">=0.4.3, <0.5"
