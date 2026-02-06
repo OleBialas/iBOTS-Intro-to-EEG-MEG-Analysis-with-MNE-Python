@@ -1,33 +1,83 @@
-# An introduction to signal processing in MNE
+## Day 1 - From Raw data to Evoked Responses
 
-Resources for an introductory course for signal processing in the [MNE-Python](https://mne.tools/stable/index.html) and [MNE-Connectivity](https://mne.tools/mne-connectivity/stable/index.html) packages.
+### 1. Working with Raw data Objects
+ - [] Lecture: What is EEG and MEG?
+ - [x] Raw Class: loading, plotting, info
+ - [x] Selecting data: copying, picking, cropping
+ - [x] Loading data from different formats
+ - [x] Creating a RawArray from Scratch
 
-Guided tutorials and exercises are provided as Jupyter notebooks in the [`Notebooks`](./Notebooks) folder (see below for the topics).<br>
-Solutions for the notebooks are provided in the [`Teacher Resources/Notebooks`](./Teacher%20Resources/Notebooks) folder.
+ ### 2. Filtering Raw Data
+ - [x] Lecture: Fourier transform and the frequency domain
+ - [x] Filtering data to remove artifacts and plotting PSD
+ - [x] Filter parameter2s and transfer functions
+ - [x] Common filterin artifacts, time-frequency tradeoffs
+ - [x]: Putting it together: filter a new dataset
 
-Presentations introducing and concluding the topics are provided in the [`Presentations`](./Presentations) folder.
+ ### 3. Epoching Event-Related Data
+ - [] Lecture: Evoked reponse potentials and their components
+ - [x] Workign with events: extracting from stimulus channel, merging events
+ - [x] Epoching raw data and visualizing ERPs
+ - [x] Topoplots and re-rereferencing
+ - [x] Removing bad epochs, autoreject
 
-Some useful resources for Python beginners are provided in the [`Useful Python Links`](./Useful%20Python%20Links.md) file.
+ ### 4. Statistical Comparison of ERPs
+ - [] #Lecture: Null hypothesis and the multiple comparisons problem
+ - [] Comparing evoked responses (difference topography)
+ - [] Statistical comparison: 1-way F-test
+ - [] Correting for Multiple Comparisons
+ - [] Permutation cluster test
 
-## Installation
+## Day 2. Source Separation in Space and Time. 
 
-Please follow the [installation instructions](./Installation%20Instructions.md) **before the course** to set up your machine with all the required software.
+### 5. Simulating Data with a Forward Model
+- [] Lecture:  source-vs sensor space, forward model, volume conductance
+- [x] Selecting and visualizing sources in the brain
+- [x] Simulate source activity using a forward model
+- [x] Adding noise and artifacts for realism
+- [] Putting it together: Simulate data from a source at a specific location
 
-## Schedule
+### 6. Dimensionality Reduction and Source Separation
 
-**Dates:** 7th - 9th February 2024
+- [] Lecture: ?
+- ?
 
-**Topics:**
+### 7. Time-Frequency Analysis with Wavelets
+- [] Lecture: Wavelet convolution
+  
 
-| **Session**   	| **Day 1**                                                           	| **Day 2**                                                                             	| **Day 3**                                                                                                                	|
-|---------------	|---------------------------------------------------------------------	|---------------------------------------------------------------------------------------	|--------------------------------------------------------------------------------------------------------------------------	|
-| **Morning**   	|                                                                     	| 1) Exploring data<br>*- [notebook](./Notebooks/Day%202/1%20-%20Exploring%20Data.ipynb)*                                                          	| 1) Working in source space:<br>Forward and inverse modelling<br>*- [notebook](./Notebooks/Day%203/1%20-%20Source%20Space.ipynb)*<br>*- [presentation](./Presentations/Day%203/1%20-%20Source%20Space.pdf)*                                            	|
-|               	|                                                                     	| 2) Spectral analysis:<br>The `time_frequency` module<br>*- [notebook](./Notebooks/Day%202/2%20-%20Filtering%20and%20Spectra.ipynb)*<br>*- [presentation](./Presentations/Day%202/2%20-%20Spectral%20Analysis.pdf)* 	| 2) Spectral connectivity:<br>The `mne_connectivity` package<br>*- [notebook](./Notebooks/Day%203/2%20-%20Connectivity%201.ipynb)*<br>*- [presentation](./Presentations/Day%203/2%20-%20Spectral%20Connectivity%201.pdf)*                              	|
-| **Afternoon** 	| 0) Course introduction<br>*- [presentation](./Presentations/Day%201/0%20-%20Course%20Introduction.pdf)*<br><br>1) Timeseries data:<br>The `Raw` class<br>*- [notebook](./Notebooks/Day%201/1%20-%20Raw.ipynb)*<br>*- [presentation](./Presentations/Day%201/1%20-%20Timeseries%20Data.pdf)* 	| 3) Independent component analysis:<br>The `ICA` class<br>*- [notebook](./Notebooks/Day%202/3%20-%20ICA.ipynb)*<br>*- [presentation](./Presentations/Day%202/3%20-%20ICA.pdf)*    	| 3) Spectral connectivity:<br>Multivariate connectivity in MNE<br>*- [notebook](./Notebooks/Day%203/3%20-%20Connectivity%202.ipynb)*<br>*- [presentation](./Presentations/Day%203/3%20-%20Spectral%20Connectivity%202.pdf)* 	|
-|               	| 2) Epoched data:<br>The `Epochs` class<br>*- [notebook](./Notebooks/Day%201/2%20-%20Epochs.ipynb)*<br>*- [presentation](./Presentations/Day%201/2%20-%20Epoched%20Data.pdf)* 	| 4) Event-related potentials:<br>The `Evoked` class<br>*- [notebook](./Notebooks/Day%202/4%20-%20Evoked.ipynb)*<br>*- [presentation](./Presentations/Day%202/4%20-%20Evoked%20Data.pdf)*       	| 4) Closing discussion<br>*- [presentation](./Presentations/Day%203/4%20-%20Course%20Conclusion.pdf)*                                                                                     	|
+### 8. Phase-based Connectivity Analysis
 
-<br>
+- [] Lecture: What is a phase time series?
 
-Morning sessions: 09:30 - 12:30<br>
-Afternoon sessions: 13:30 - 17:00<br>
-All times in CET.
+## Day 3. Encoding Decoding Models
+
+### 9. Linear Regression and Regularization
+
+- [] Lecture: Regression as matrix multiplication
+- [x] OLS regression with one and multiple features
+- [x] Regularization to improve predictions
+- [] Cross validation for optimization
+- [x] Demo: Colinearity
+
+### 10. Regression for Time-Series Data
+
+- [] Lecture: Intro to time-lagged regression
+
+### 11. Modeling Neural Responses to Naturalistics Speech
+
+- [] Lecture Encoding/Decoding models for EEG and speech
+- [] Predicting neural responses from different speech features and visualizing weights (exporting to MNE)
+- [] Decoding selective attention in cocktail party task
+- [] Segmentation and Cross-validation
+- [] Musall Lab: Demo on applying encoding models to wide-field imaging data
+
+### 12. Significance Testing and Variance Partitioning
+
+- [] Lecture: Causality vs. Correlation
+- [] Permutation based significance testing
+- [] Nested cross-validation
+- [] Model comparison with feature shuffling
+- [] Variance partitioning
+
+
