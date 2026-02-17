@@ -20,6 +20,7 @@ Each exercise should have a solution and the code cell should be tagged as "solu
 - The language used in the notebooks should be consistent, if there are multiple terms used for a gven technique, the same name should be used across all notebooks consistently.
 - Sessions and sections should be as self-contained as possible. Failing at a specific exercise should not prevent the participant from solving subsequent exercises.
 - All the descriptions should be scientifically and mathematically correct.
+- There shouldn't be any unnecessary outputs (e.g. duplicated plots or matplotlib text outputs)
 
 # Technology
 The project uses pixi to manage the environment so whenever running any Python commands, it should be 
