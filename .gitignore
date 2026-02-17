@@ -30,3 +30,7 @@ __pycache__
 # slides
 *.html
 *-checkpoint.ipynb
+
+# neuro data
+**/data
+*.fif
