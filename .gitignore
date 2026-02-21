@@ -34,3 +34,4 @@ __pycache__
 # neuro data
 **/data
 *.fif
+*.stc
