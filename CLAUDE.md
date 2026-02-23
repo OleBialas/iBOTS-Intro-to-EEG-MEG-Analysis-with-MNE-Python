@@ -1,3 +1,6 @@
+# Instructions
+When you find new information about the content or structure of this project that would be useful for future sessions, append them it to this document.
+
 # Repository structure
 This repository contains materials for a hands-on workshop on EEG and MEG analysis in Python using the MNE package.
 The worshop spans three days and each day contains 4 sessions.
@@ -24,4 +27,4 @@ Each exercise should have a solution and the code cell should be tagged as "solu
 - IMPORTANT: when being asked to proofread always do an additional pass without considering your previous edits and repeat until you manage to do a pass were you can't find anything
 
 # Technology
-The project uses pixi to manage the environment so whenever running any Python commands, it should be 
+The project uses pixi to manage the environment so whenever running any Python commands, it should be executed via `pixi run`.
