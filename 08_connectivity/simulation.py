@@ -77,5 +77,5 @@ epochs = mne.epochs.Epochs(
     raw_sim, events, tmin=-1, tmax=2, baseline=None, preload=True
 )
 
-stc.save(root / "source", overwrite=True)
-epochs.save(root / "epochs.fif", overwrite=True)
+stc.save(root / "sim", overwrite=True)
+epochs.save(root / "sim-epo.fif", overwrite=True)
