@@ -5,12 +5,13 @@ import numpy as np
 root = Path(__file__).parent
 N_EPOCHS = 100
 
+print("Loading data and building forward model...")
 raw_fname = mne.datasets.eegbci.load_data(subjects=1, runs=[6])[0]
-raw = mne.io.read_raw_edf(raw_fname, preload=True)
+raw = mne.io.read_raw_edf(raw_fname, preload=True, verbose=False)
 montage = mne.channels.make_standard_montage("standard_1005")
 mne.datasets.eegbci.standardize(raw)
-raw.set_montage(montage)
-fs_dir = mne.datasets.fetch_fsaverage(verbose=True)
+raw.set_montage(montage, verbose=False)
+fs_dir = mne.datasets.fetch_fsaverage(verbose=False)
 src = fs_dir / "bem" / "fsaverage-ico-5-src.fif"
 bem = fs_dir / "bem" / "fsaverage-5120-5120-5120-bem-sol.fif"
 fwd = mne.make_forward_solution(
@@ -22,11 +23,13 @@ fwd = mne.make_forward_solution(
     eeg=True,
     mindist=5.0,
     n_jobs=None,
+    verbose=False,
 )
 raw.info["dev_head_t"] = fwd["info"]["dev_head_t"]
 
+print("Simulating source activity...")
 labels = mne.read_labels_from_annot(
-    "fsaverage", parc="aparc", subjects_dir=fs_dir.parent
+    "fsaverage", parc="aparc", subjects_dir=fs_dir.parent, verbose=False
 )
 label_names = ["transversetemporal-lh", "parsopercularis-lh"]
 labels = [l for l in labels if l.name in label_names]
@@ -49,7 +52,6 @@ stc_broca = mne.simulation.simulate_sparse_stc(
     data_fun=lambda t: 0.1e-7 * np.sin(2 * np.pi * 8 * t - np.pi / 4),
 )
 
-
 # Get all vertices from both STCs
 all_vertices = [
     np.union1d(stc_a1.vertices[0], stc_broca.vertices[0]),  # left hemi
@@ -60,22 +62,34 @@ all_vertices = [
 stc_a1_expanded = stc_a1.expand(all_vertices)
 stc_broca_expanded = stc_broca.expand(all_vertices)
 
-# Now you can add them
 stc = stc_a1_expanded + stc_broca_expanded
 
+print("Projecting sources to EEG and adding noise...")
+# Two extra stcs provide buffer so no epoch is dropped at the boundaries
 raw_sim = mne.simulation.simulate_raw(
-    raw.info, [stc] * N_EPOCHS, forward=fwd, verbose=False
+    raw.info, [stc] * (N_EPOCHS + 2), forward=fwd, verbose=False
 )
 
+cov = mne.make_ad_hoc_cov(raw_sim.info, verbose=False)
+mne.simulation.add_noise(
+    raw_sim, cov, iir_filter=[0.2, -0.2, 0.04], random_state=42, verbose=False
+)
 
-cov = mne.make_ad_hoc_cov(raw_sim.info)
-mne.simulation.add_noise(raw_sim, cov, iir_filter=[0.2, -0.2, 0.04])
-
+print("Epoching...")
 n_samples_per_epoch = len(stc.times)
-events = np.array([[i * n_samples_per_epoch, 0, 1] for i in range(N_EPOCHS)])
+# Offset events by one stc so the first epoch has a full second of baseline
+events = np.array(
+    [[n_samples_per_epoch + i * n_samples_per_epoch, 0, 1] for i in range(N_EPOCHS)]
+)
+annotations = mne.annotations_from_events(
+    events, sfreq=raw_sim.info["sfreq"], event_desc={1: "stimulus"}, verbose=False
+)
+raw_sim.set_annotations(annotations, verbose=False)
 epochs = mne.epochs.Epochs(
-    raw_sim, events, tmin=-1, tmax=2, baseline=None, preload=True
+    raw_sim, events, tmin=-1, tmax=2, baseline=None, preload=True, verbose=False
 )
 
-stc.save(root / "sim", overwrite=True)
-epochs.save(root / "sim-epo.fif", overwrite=True)
+print("Saving...")
+stc.save(root / "sim", overwrite=True, verbose=False)
+epochs.save(root / "sim-epo.fif", overwrite=True, verbose=False)
+print("Done.")
